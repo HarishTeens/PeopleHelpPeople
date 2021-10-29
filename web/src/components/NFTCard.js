@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useHistory } from 'react-router';
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -10,15 +12,20 @@ import useFinnie from '../hooks/useFinnie';
 
 export default function NFTCard({ nft }) {
   const [wallet, connectWallet, submitRecipient, setRecipient, recipient] = useFinnie();
+  let history = useHistory();
+
+  function handleClick() {
+    history.push("/nft/" + nft.id);
+  }
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} >
       <CardMedia
         component="img"
-        alt="green iguana"
         height="240"
         image={"https://arweave.net/" + nft.id}
       />
-      <CardContent>
+      <CardContent style={{ cursor: 'pointer' }} onClick={handleClick}>
         <Typography gutterBottom variant="h4" component="div">
           {nft.title}
         </Typography>

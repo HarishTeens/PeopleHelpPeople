@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 import apis from "./apis";
 import ButtonAppBar from "./components/ButtonAppBar";
 import useFinnie from "./hooks/useFinnie";
-import NFTCard from "./components/NFTCard"
 import { Container } from "@mui/material";
+import Home from "./screens/Home";
+import NFT from "./screens/NFT";
 
 import * as kweb from "@_koi/sdk/web.js";
 const ktools = new kweb.Web();
@@ -39,13 +48,16 @@ function App() {
     <div className="App">
       <ButtonAppBar wallet={wallet} connectWallet={connectWallet} balance={balance} />
       <Container>
-
-        {
-          nfts.length === 0 ?
-            loading ? "loading..." : <h1>No Listings found</h1>
-            :
-            nfts.map(nft => (<NFTCard key={nft.id} nft={nft} />))
-        }
+        <Router>
+          <Switch>
+            <Route path="/nft/:id">
+              <NFT />
+            </Route>
+            <Route path="/">
+              <Home nfts={nfts} loading={loading} />
+            </Route>
+          </Switch>
+        </Router>
       </Container>
     </div>
   );
