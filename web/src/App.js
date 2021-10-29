@@ -1,5 +1,4 @@
 import ButtonAppBar from "./components/ButtonAppBar";
-import NFTList from "./components/NFTList";
 import useFinnie from "./hooks/useFinnie";
 
 
@@ -11,7 +10,7 @@ function App() {
     <div className="App">
       <ButtonAppBar wallet={wallet} connectWallet={connectWallet} />
       <header className="App-header">
-        <br />
+        <br />        
       </header>
     </div>
   );
