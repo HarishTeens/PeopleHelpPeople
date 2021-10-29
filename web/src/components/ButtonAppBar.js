@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-export default function ButtonAppBar({wallet, connectWallet}) {
+export default function ButtonAppBar({ wallet, connectWallet, balance }) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -24,7 +24,7 @@ export default function ButtonAppBar({wallet, connectWallet}) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         KOII Crowd Source
                     </Typography>
-                    {wallet==="" ? <Button onClick={connectWallet} color="inherit">Connect</Button> : <Button onClick={connectWallet} color="inherit">Disconnect</Button>}
+                    {wallet === "" ? <Button onClick={connectWallet} color="inherit">Connect</Button> : <span disabled color="primary">{balance.toFixed(3)} KOII</span>}
                 </Toolbar>
             </AppBar>
         </Box>

@@ -8,17 +8,10 @@ export default function useFinnie() {
     const finnie = new Finnie();
     finnie.init();
 
-    useEffect(() => {
-        if (finnie.isConnected) {
-            const address = finnie.userAddress;
-            console.log(address);
-        }
-    }, [])
-
 
     const connectWallet = async () => {
         const isConnected = await finnie.connect();
-
+        console.log(finnie);
         if (isConnected)
             setWallet(finnie.userAddress)
     }
@@ -28,7 +21,7 @@ export default function useFinnie() {
         const amount = 0.001;
         const txid = await finnie.sendTip(recipient, amount);
         alert("Tip sent! with id " + txid);
-        setRecipient("");
+        setRecipient("D");
     }
 
     return [wallet, connectWallet, submitRecipient, setRecipient, recipient]
