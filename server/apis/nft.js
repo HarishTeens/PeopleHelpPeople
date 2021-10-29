@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const getAll = async () => {
-    const response = await axios.get('https://mainnet.koii.live/attention/nft-summaries?period=1w');
+    const response = await axios.get('https://mainnet.koii.live/attention/nft-summaries?period=24h');
     return response.data;
 }
 
