@@ -1,6 +1,8 @@
 const apis = require('./apis');
+const cors = require('cors');
 
 const express = require('express')();
+express.use(cors({ origin: '*' }));
 
 express.get('/', (req, res) => {
     res.send('Hello World!');
@@ -15,10 +17,10 @@ express.get('/nfts', async (req, res) => {
         else
             return null;
     }))
-    const filteredNFTs= NFTs.filter(nft => nft !== null);
+    const filteredNFTs = NFTs.filter(nft => nft !== null);
     res.json(filteredNFTs);
 })
 
-express.listen(3000, () => {
-    console.log('Server is listening on port 3000');
+express.listen(4000, () => {
+    console.log('Server is listening on port 4000');
 })
