@@ -22,7 +22,7 @@ export default function ButtonAppBar({wallet, connectWallet}) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Savvy title here
+                        KOII Crowd Source
                     </Typography>
                     {wallet==="" ? <Button onClick={connectWallet} color="inherit">Connect</Button> : <Button onClick={connectWallet} color="inherit">Disconnect</Button>}
                 </Toolbar>

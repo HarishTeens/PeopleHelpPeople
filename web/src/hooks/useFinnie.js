@@ -3,6 +3,7 @@ import Finnie from "@koii-network/kikusui"
 
 export default function useFinnie() {
     const [wallet, setWallet] = useState("");
+    const [recipient, setRecipient] = useState("");
 
     const finnie = new Finnie();
     finnie.init();
@@ -22,6 +23,14 @@ export default function useFinnie() {
             setWallet(finnie.userAddress)
     }
 
-    return [wallet, connectWallet]
+    const submitRecipient = async () => {
+        console.log(recipient);
+        const amount = 0.001;
+        const txid = await finnie.sendTip(recipient, amount);
+        alert("Tip sent! with id " + txid);
+        setRecipient("");
+    }
+
+    return [wallet, connectWallet, submitRecipient, setRecipient, recipient]
 
 }

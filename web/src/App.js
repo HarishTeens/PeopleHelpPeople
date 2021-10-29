@@ -10,11 +10,14 @@ function App() {
 
   const [wallet, connectWallet] = useFinnie();
   const [nfts, setNfts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchNFTS = async () => {
+      setLoading(true);
       const nfts = await apis.nft.getAll();
       setNfts(nfts);
+      setLoading(false);
     };
     fetchNFTS();
   }, []);
@@ -26,9 +29,9 @@ function App() {
         <br />
         {
           nfts.length === 0 ?
-            <h1>No NFTs found</h1>
+            loading ? "loading..." : <h1>No Listings found</h1>
             :
-            nfts.map(nft => (<NFTCard />))
+            nfts.map(nft => (<NFTCard nft={nft} />))
         }
       </header>
     </div>

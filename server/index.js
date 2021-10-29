@@ -12,7 +12,7 @@ express.get('/nfts', async (req, res) => {
     const data = await apis.nft.getAll();
     const NFTs = await Promise.all(data.map(async nft => {
         const nftData = await apis.nft.get(nft.id);
-        if (nftData.tags?.includes("crowdsource"))
+        if (nftData.tags?.includes("lightning"))
             return nftData;
         else
             return null;
