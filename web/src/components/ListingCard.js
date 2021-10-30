@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import apis from '../apis';
+import helpers from '../helpers';
 import useFinnie from '../hooks/useFinnie';
 
 export default function ListingCard({ listing, handlers, type = "PETITION", showAlert }) {
@@ -17,20 +17,7 @@ export default function ListingCard({ listing, handlers, type = "PETITION", show
     history.push("/listing/" + listing.id);
   }
 
-  const signHelper = async () => {
-    if (handlers.wallet === "") {
-      alert("You need to have finnie wallet to sign a petition!");
-      return;
-    }
-    const payload = {
-      function: "sign",
-      signerId: handlers.wallet
-    }
-    console.log(payload);
-    const response = await apis.petition.signThePetition(listing.id, payload);
-    console.log(response);
-    showAlert();
-  }
+
 
   return (
     <Card sx={{ maxWidth: 345 }} >
@@ -46,7 +33,7 @@ export default function ListingCard({ listing, handlers, type = "PETITION", show
         </Typography>
       </CardContent>
       <CardActions>
-        {type === "PETITION" && <Button size="small" onClick={signHelper}>Sign</Button>}
+        {type === "PETITION" && <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>}
         {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
           <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}
         <Button size="small">Share</Button>

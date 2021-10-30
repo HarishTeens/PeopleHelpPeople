@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 
 
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 import apis from "./apis";
 import ButtonAppBar from "./components/ButtonAppBar";
 import useFinnie from "./hooks/useFinnie";
@@ -26,6 +29,14 @@ function App() {
   const [petitions, setPetitions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [show, setShow] = useState(false);
+    
+  const showAlert = () => {
+      setShow(true);
+      setTimeout(() => {
+          setShow(false);
+      }, 5000);
+  };
 
   useEffect(() => {
     const fetchPetitions = async () => {
@@ -53,14 +64,17 @@ function App() {
   return (
     <div className="App">
       <ButtonAppBar wallet={wallet} connectWallet={connectWallet} balance={balance} />
+      <Stack >
+            {show && <Alert severity="success">Your petition was signed successfully. Please wait for the network to update.</Alert>}
+        </Stack>
       <Container>
         <Router>
           <Switch>
             <Route path="/listing/:id" >
-              <Listing handlers={handlers} />
+              <Listing handlers={handlers} showAlert={showAlert} />
             </Route>
             <Route path="/">
-              <Home listings={petitions} loading={loading} handlers={handlers} />
+              <Home listings={petitions} loading={loading} handlers={handlers} showAlert={showAlert} />
             </Route>
           </Switch>
         </Router>
