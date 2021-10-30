@@ -30,7 +30,7 @@ export default function NFTCard({ nft }) {
           {nft.title}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          Earned {nft.reward.toFixed(2)} KOII
+           {nft.reward.toFixed(2)} KOII earned
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {nft.description}

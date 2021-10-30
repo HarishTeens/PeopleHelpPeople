@@ -1,14 +1,15 @@
 
 import NFTCard from "../components/NFTCard"
+import { Grid } from "@mui/material"
 
 export default function Home({ nfts, loading }) {
 
-    return (<div>
+    return (<Grid container spacing={2}>
         {
             nfts.length === 0 ?
                 loading ? "loading..." : <h1>No Listings found</h1>
                 :
-                nfts.map(nft => (<NFTCard key={nft.id} nft={nft} />))
+                nfts.map(nft => (<Grid item xs={4}><NFTCard key={nft.id} nft={nft} /></Grid>))
         }
-    </div>)
+    </Grid>)
 }

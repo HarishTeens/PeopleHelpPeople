@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import apis from "../apis";
 
 
 export default function NFT() {
@@ -7,18 +8,14 @@ export default function NFT() {
     const [nft, setNft] = useState(null);
 
     useEffect(() => {
-        fetch("https://mainnet.koii.live/attention/nft?id=" + id)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                setNft(data);
-            })
-    })
+        apis.nft.get(id).then(setNft);
+    }, [])
 
     return (
         <div>
             <h1> {nft?.title}</h1>
+            <h2>{nft?.reward.toFixed(3)} KOII earned</h2>
+            <img src={"https://arweave.net/" + nft.id}alt={nft?.title} />
             <p>{nft?.description}</p>
             <a href={`https://koii.rocks/content-detail/${id}`} target="_blank">Visit Koii.rocks to send attention rewards</a>
         </div>

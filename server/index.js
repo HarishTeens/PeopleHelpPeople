@@ -31,20 +31,11 @@ express.get('/', (req, res) => {
 });
 
 express.get('/nfts', async (req, res) => {
-    const hit = await getAsync("nfts");
-    if (hit !== null) {
-        res.send(hit);
-        return;
-    }
-
     const data = await apis.nft.getAll();
     const NFTs = await Promise.all(data.map(async nft => {
         try {
             const nftData = await apis.nft.get(nft.id);
-            if (nftData.tags?.includes("lightning"))
-                return nftData;
-            else
-                return null;
+            return nftData;
 
         } catch (error) {
             console.error(nft);
@@ -52,7 +43,6 @@ express.get('/nfts', async (req, res) => {
         }
     }))
     const filteredNFTs = NFTs.filter(nft => nft !== null);
-    setAsync("nfts", JSON.stringify(filteredNFTs));
     res.json(filteredNFTs);
 })
 
