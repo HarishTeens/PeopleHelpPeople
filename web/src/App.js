@@ -21,7 +21,7 @@ function App() {
 
   const [wallet, connectWallet, submitRecipient, setRecipient, recipient, finnie] = useFinnie();
   const handlers = {
-    submitRecipient, setRecipient, recipient, finnie
+    submitRecipient, setRecipient, recipient, finnie, wallet
   }
   const [petitions, setPetitions] = useState([]);
   const [loading, setLoading] = useState(false);
