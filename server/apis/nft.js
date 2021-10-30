@@ -10,9 +10,19 @@ const get = async (id) => {
     return response.data;
 }
 
+const submitPort = async (data) => {
+    const response = await axios.post(`https://mainnet.koii.live/attention/submit-port`, data,{
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    return response.data;
+}
+
 const nft = {
     getAll,
-    get
+    get,
+    submitPort
 }
 
 module.exports = nft

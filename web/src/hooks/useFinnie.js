@@ -24,6 +24,6 @@ export default function useFinnie() {
         setRecipient("D");
     }
 
-    return [wallet, connectWallet, submitRecipient, setRecipient, recipient]
+    return [wallet, connectWallet, submitRecipient, setRecipient, recipient, finnie]
 
 }
