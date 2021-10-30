@@ -47,18 +47,17 @@ express.get('/nfts', async (req, res) => {
 })
 
 
-// express.get('/submit-port', async (req, res) => {
-//     const body = req.query.payload;
-//     console.log('62', body);
-//     try {
-//         const data = await apis.nft.submitPort(body);
-//         res.json(data);
-//     } catch (error) {
-//         console.log(error.message);
-//         res.send(error.message);
-//     }
+express.post('/submit-port', async (req, res) => {
+    const body = req.body;
+    try {
+        const data = await apis.nft.submitPort(body);
+        res.json(data);
+    } catch (error) {
+        console.log(error.message);
+        res.send(error.message);
+    }
 
-// })
+})
 
 express.listen(4000, () => {
     console.log('Server is listening on port 4000');

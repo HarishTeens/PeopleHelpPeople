@@ -53,8 +53,8 @@ function App() {
       <Container>
         <Router>
           <Switch>
-            <Route path="/nft/:id">
-              <NFT />
+            <Route path="/nft/:id" >
+              <NFT handlers={handlers}/>
             </Route>
             <Route path="/">
               <Home nfts={nfts} loading={loading} handlers={handlers} />
