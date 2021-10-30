@@ -2,7 +2,7 @@ import { walletJSON, readContract, interactWrite, arweave } from './arweave.js';
 
 
 const getAll = async () => {
-    const response = await readContract(arweave, process.env.REACT_APP_PETITION_CONTRACT);
+    const response = await readContract(arweave, process.env.REACT_APP_CROWDSOURCE_CONTRACT);
     return response;
 }
 const get = async (id) => {
@@ -10,7 +10,7 @@ const get = async (id) => {
     return response;
 }
 
-const signThePetition = async (id, data) => {
+const donateToken = async (id, data) => {
     const wallet = walletJSON;
     console.log(wallet);
     const response = await interactWrite(arweave, wallet, id, data);
@@ -21,7 +21,7 @@ const signThePetition = async (id, data) => {
 const nft = {
     getAll,
     get,
-    signThePetition
+    donateToken
 }
 
 export default nft
