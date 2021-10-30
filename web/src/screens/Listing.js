@@ -32,7 +32,7 @@ export default function Listing({ handlers,type = "PETITION", showAlert }) {
         {type === "PETITION" && <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>}
         {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
           <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}
-        <TwitterShareButton>
+        <TwitterShareButton url={window.location.href} title="Sign this petition">
             Share <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
     </div >) : (<div>Loading...</div>)

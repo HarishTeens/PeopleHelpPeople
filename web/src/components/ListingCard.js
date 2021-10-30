@@ -35,8 +35,7 @@ export default function ListingCard({ listing, handlers, type = "PETITION", show
       <CardActions>
         {type === "PETITION" && <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>}
         {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
-          <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}
-        <Button size="small">Share</Button>
+          <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}        
       </CardActions>
     </Card>
   );
