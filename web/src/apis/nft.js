@@ -4,7 +4,7 @@ const getAll = async () => {
     return json;
 }
 const get = async (id) => {
-    const response = await fetch('http://localhost:8887/syi9Aqh5MRl7d22R2qTH4dYXiM0cS39omHJIw03AxF8/nft?id=' + id);
+    const response = await fetch('http://localhost:8887/IzaZWGZDiR3UCABdMaDOzaeEnXBgJDVM_7egOs1GvY8/nft?id=' + id);
     const json = await response.json();
     return json;
 }
@@ -22,7 +22,7 @@ const submitPort = async (data) => {
 }
 
 const getRealtimeAttention = async (id) => {
-    const response = await fetch('http://localhost:8887/syi9Aqh5MRl7d22R2qTH4dYXiM0cS39omHJIw03AxF8/realtime-attention?id=' + id);
+    const response = await fetch('http://localhost:8887/IzaZWGZDiR3UCABdMaDOzaeEnXBgJDVM_7egOs1GvY8/realtime-attention?id=' + id);
     const json = await response.json();
     return json.count;
 }

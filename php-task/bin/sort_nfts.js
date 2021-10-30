@@ -40,7 +40,7 @@ async function main() {
     ...narccis4
   );
   // Clean NFT list
-  combinedArray = combinedArray.filter(
+  combinedArray = combinedArray?.filter(
     (ele, pos) =>
       combinedArray.indexOf(ele) === pos &&
       typeof ele === "string" &&
@@ -78,8 +78,8 @@ async function getNextPage(ids, after) {
   const afterQuery = after ? `,after:"${after}"` : "";
   const query = `query {
     transactions(ids: ${JSON.stringify(
-      ids
-    )}, sort: HEIGHT_ASC, first: ${MAX_REQUEST}${afterQuery}) {
+    ids
+  )}, sort: HEIGHT_ASC, first: ${MAX_REQUEST}${afterQuery}) {
       pageInfo { hasNextPage }
       edges {
         node {

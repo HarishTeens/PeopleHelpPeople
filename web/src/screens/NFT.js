@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import apis from "../apis";
-
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function NFT({ handlers }) {
     const { id } = useParams();
     const [nft, setNft] = useState(null);
     const [realtimeAttention, setRealtimeAttention] = useState(0);
+    const [show,setShow] = useState(false);
 
     useEffect(() => {
         setTimeout(async () => {
@@ -20,17 +22,22 @@ export default function NFT({ handlers }) {
             console.log(handlers.finnie.windowFinnie.signPort);
             const { data } = await handlers.finnie.windowFinnie.signPort(id);
             const response = await apis.nft.submitPort(data);
-            console.log(response);
+            setShow(true);
+            setTimeout(() => {
+                setShow(false);
+            }, 5000);
         }
         signPort();
     }, [])
 
     return nft ? (<div>
+        <Stack >
+            {show && <Alert severity="success">Port Recieved</Alert>}
+        </Stack>
         <h1> {nft?.title}</h1>
         <h2>{nft?.reward.toFixed(3)} KOII earned  |  {nft?.attention + realtimeAttention} views</h2>
         <img src={"https://arweave.net/" + nft?.id} style={{ height: "300px" }} alt={nft?.title} />
-        <p>{nft?.description}</p>
-        <a href={`https://koii.rocks/content-detail/${id}`} target="_blank">Visit Koii.rocks to send attention rewards</a>
+        <p>{nft?.description}</p>        
     </div >) : (<div>Loading...</div>)
 
 }
