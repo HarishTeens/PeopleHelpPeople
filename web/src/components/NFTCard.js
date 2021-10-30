@@ -10,8 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import useFinnie from '../hooks/useFinnie';
 
-export default function NFTCard({ nft }) {
-  const [wallet, connectWallet, submitRecipient, setRecipient, recipient] = useFinnie();
+export default function NFTCard({ nft,handlers }) {
   let history = useHistory();
 
   function handleClick() {
@@ -37,8 +36,8 @@ export default function NFTCard({ nft }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <input type="text" placeholder="Recipient wallet address" value={recipient} onChange={(e) => setRecipient(e.target.value)} />
-        <Button size="small" onClick={submitRecipient}>Donate</Button>
+        <input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
+        <Button size="small" onClick={handlers.submitRecipient}>Donate</Button>
         <Button size="small">Share</Button>
       </CardActions>
     </Card>

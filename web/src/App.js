@@ -21,7 +21,10 @@ const ktools = new kweb.Web();
 
 function App() {
 
-  const [wallet, connectWallet] = useFinnie();
+  const [wallet, connectWallet, submitRecipient, setRecipient, recipient, finnie] = useFinnie();
+  const handlers = {
+    submitRecipient, setRecipient, recipient, finnie
+  }
   const [nfts, setNfts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
@@ -54,7 +57,7 @@ function App() {
               <NFT />
             </Route>
             <Route path="/">
-              <Home nfts={nfts} loading={loading} />
+              <Home nfts={nfts} loading={loading} handlers={handlers} />
             </Route>
           </Switch>
         </Router>
