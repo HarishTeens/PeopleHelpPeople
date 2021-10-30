@@ -1,9 +1,9 @@
-import { useState } from "react";
-import ListingCard from "../components/ListingCard"
+import PetitionCard from "../components/PetitionCard"
+import CrowdSourceCard from "../components/CrowdSourceCard"
 import { Grid } from "@mui/material"
 
 
-export default function Home({ listings, loading, handlers,showAlert }) {
+export default function Home({ listings, loading, handlers,showAlert,type }) {
 
 
     return (
@@ -12,9 +12,11 @@ export default function Home({ listings, loading, handlers,showAlert }) {
         <Grid container spacing={2}>
         {
             listings.length === 0 ?
-                loading ? "loading..." : <h1>No Listings found</h1>
-                :
-                listings.map(listing => (<Grid item xs={4}><ListingCard showAlert={showAlert} key={listing.id} listing={listing} handlers={handlers} /></Grid>))
+                loading ? "loading..." : <h1>No {type} data found</h1>
+                        :
+                        type ==="PETITION"?                
+                            listings.map(listing => (<Grid item xs={4}><PetitionCard showAlert={showAlert} key={listing.id} listing={listing} handlers={handlers} /></Grid>))
+                            :listings.map(listing => (<Grid item xs={4}><CrowdSourceCard showAlert={showAlert} key={listing.id} listing={listing} handlers={handlers} /></Grid>))
         }
             </Grid>
             </>)

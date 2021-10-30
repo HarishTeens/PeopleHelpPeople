@@ -1,3 +1,7 @@
+// {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
+//           <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}        
+
+
 import * as React from 'react';
 import { useHistory } from 'react-router';
 
@@ -8,16 +12,13 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import helpers from '../helpers';
-import useFinnie from '../hooks/useFinnie';
 
-export default function ListingCard({ listing, handlers, type = "PETITION", showAlert }) {
+export default function PetitionCard({ listing, handlers, type = "PETITION", showAlert }) {
   let history = useHistory();
 
   function handleClick() {
     history.push("/listing/" + listing.id);
   }
-
-
 
   return (
     <Card sx={{ maxWidth: 345 }} >
@@ -33,9 +34,7 @@ export default function ListingCard({ listing, handlers, type = "PETITION", show
         </Typography>
       </CardContent>
       <CardActions>
-        {type === "PETITION" && <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>}
-        {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
-          <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}        
+        <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>        
       </CardActions>
     </Card>
   );

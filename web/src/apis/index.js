@@ -1,7 +1,9 @@
 import petition from './petition';
+import crowdsource from './crowdsource';
 
 const apis = {
-    petition
+    petition,
+    crowdsource
 }
 
 export default apis

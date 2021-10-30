@@ -27,15 +27,16 @@ function App() {
     submitRecipient, setRecipient, recipient, finnie, wallet
   }
   const [petitions, setPetitions] = useState([]);
+  const [crowdsource, setCrowdsource] = useState([]);
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
   const [show, setShow] = useState(false);
-    
+
   const showAlert = () => {
-      setShow(true);
-      setTimeout(() => {
-          setShow(false);
-      }, 5000);
+    setShow(true);
+    setTimeout(() => {
+      setShow(false);
+    }, 5000);
   };
 
   useEffect(() => {
@@ -45,12 +46,26 @@ function App() {
       console.log(data);
       const hydratedPetitions = await Promise.all(Object.keys(data.petitions).map(async pid => {
         const petitionData = await apis.petition.get(pid);
-        return {...petitionData, id: pid};
+        return { ...petitionData, id: pid };
       }))
       setPetitions(hydratedPetitions);
       setLoading(false);
     };
     fetchPetitions();
+  }, []);
+
+  useEffect(() => {
+    const fetchCrowdsource = async () => {
+      setLoading(true);
+      const data = await apis.crowdsource.getAll();
+      const hydratedCrowdsource = await Promise.all(Object.keys(data.collections).map(async cid => {
+        const collectionData = await apis.crowdsource.get(cid);
+        return { ...collectionData, id: cid };
+      }))
+      setCrowdsource(hydratedCrowdsource);
+      setLoading(false);
+    };
+    fetchCrowdsource();
   }, []);
 
   useEffect(() => {
@@ -65,16 +80,25 @@ function App() {
     <div className="App">
       <ButtonAppBar wallet={wallet} connectWallet={connectWallet} balance={balance} />
       <Stack >
-            {show && <Alert severity="success">Your petition was signed successfully. Please wait for the network to update.</Alert>}
-        </Stack>
+        {show && <Alert severity="success">Your petition was signed successfully. Please wait for the network to update.</Alert>}
+      </Stack>
       <Container>
         <Router>
           <Switch>
             <Route path="/listing/:id" >
               <Listing handlers={handlers} showAlert={showAlert} />
             </Route>
+            <Route path="/petition">
+              <Home listings={petitions} type="PETITION" loading={loading} handlers={handlers} showAlert={showAlert} />
+            </Route>
+            <Route path="/crowdsource">
+              <Home listings={crowdsource} type="CROWDSOURCE" loading={loading} handlers={handlers} showAlert={showAlert} />
+              </Route>
             <Route path="/">
-              <Home listings={petitions} loading={loading} handlers={handlers} showAlert={showAlert} />
+              <ol>
+                <li><Link to="/petition">Petition</Link></li>
+                <li><Link to="/crowdsource">Crowdsource</Link></li>
+              </ol>
             </Route>
           </Switch>
         </Router>
