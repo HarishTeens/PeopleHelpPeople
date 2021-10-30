@@ -12,24 +12,23 @@ const arweave = Arweave.init({
 
 const walletPath = process.env.WALLET_LOCATION;
 if (!walletPath) throw new Error("WALLET_LOCATION not specified in .env");
-const contract = process.argv[2];
+const contract = "php;"
 if (!contract) throw new Error("Contract name not specified");
 
 const wallet = JSON.parse(fs.readFileSync(walletPath));
-const src = fs.readFileSync(`dist/${contract}.js`);
-const state = fs.readFileSync(`src/${contract}/init_state.json`);
+const src = fs.readFileSync(`index.js`);
+const state = fs.readFileSync(`init_state.json`);
 
 async function deploy() {
   const id = await smartweave.createContract(arweave, wallet, src, state);
   console.log(`Deployed ${contract} Contract with ID ${id}`);
-  fs.writeFileSync("dist/Transaction.json", JSON.stringify({ id }));
   await checkTxConfirmation(id);
 }
 
 async function checkTxConfirmation(txId) {
   console.log(`TxId: ${txId}\nWaiting for confirmation`);
   const start = Date.now();
-  for (;;) {
+  for (; ;) {
     try {
       await arweave.transactions.get(txId);
       console.log(`Transaction found`);
