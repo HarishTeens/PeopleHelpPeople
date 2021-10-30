@@ -1,15 +1,15 @@
 
-import NFTCard from "../components/NFTCard"
+import ListingCard from "../components/ListingCard"
 import { Grid } from "@mui/material"
 
-export default function Home({ nfts, loading, handlers }) {
+export default function Home({ listings, loading, handlers }) {
 
     return (<Grid container spacing={2}>
         {
-            nfts.length === 0 ?
+            listings.length === 0 ?
                 loading ? "loading..." : <h1>No Listings found</h1>
                 :
-                nfts.map(nft => (<Grid item xs={4}><NFTCard key={nft.id} nft={nft} handlers={handlers} /></Grid>))
+                listings.map(listing => (<Grid item xs={4}><ListingCard key={listing.id} listing={listing} handlers={handlers} /></Grid>))
         }
     </Grid>)
 }

@@ -10,34 +10,30 @@ import Typography from '@mui/material/Typography';
 
 import useFinnie from '../hooks/useFinnie';
 
-export default function NFTCard({ nft,handlers }) {
+export default function ListingCard({ listing, handlers, type = "PETITION" }) {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/nft/" + nft.id);
+    history.push("/listing/" + listing.id);
   }
 
   return (
     <Card sx={{ maxWidth: 345 }} >
-      <CardMedia
-        component="img"
-        height="240"
-        image={"https://arweave.net/" + nft.id}
-      />
       <CardContent style={{ cursor: 'pointer' }} onClick={handleClick}>
         <Typography gutterBottom variant="h4" component="div">
-          {nft.title}
+          {listing.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-           {nft.reward.toFixed(2)} KOII earned
+          {Object.keys(listing.signs).length} signed
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {nft.description}
+          {listing.description}
         </Typography>
       </CardContent>
       <CardActions>
-        <input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
-        <Button size="small" onClick={handlers.submitRecipient}>Donate</Button>
+        {type === "PETITION" && <Button size="small" onClick={handlers.sign}>Sign</Button>}
+        {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
+          <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}
         <Button size="small">Share</Button>
       </CardActions>
     </Card>

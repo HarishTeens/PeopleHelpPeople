@@ -1,7 +1,7 @@
-import nft from './nft';
+import petition from './petition';
 
 const apis = {
-    nft
+    petition
 }
 
 export default apis

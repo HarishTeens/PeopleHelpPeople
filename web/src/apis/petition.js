@@ -1,12 +1,21 @@
+import { readContract } from 'smartweave'
+import Arweave from 'arweave';
+
+const arweave = Arweave.init({
+    host: "arweave.net",
+    port: 443,
+    protocol: "https",
+    timeout: 20000,
+    logging: false
+});
+
 const getAll = async () => {
-    const response = await fetch('http://localhost:4000/nfts');
-    const json = await response.json();
-    return json;
+    const response = await readContract(arweave, process.env.REACT_APP_PETITION_CONTRACT);
+    return response;
 }
 const get = async (id) => {
-    const response = await fetch('http://localhost:8887/IzaZWGZDiR3UCABdMaDOzaeEnXBgJDVM_7egOs1GvY8/nft?id=' + id);
-    const json = await response.json();
-    return json;
+    const response = await readContract(arweave, id);
+    return response;
 }
 
 const submitPort = async (data) => {

@@ -4,7 +4,7 @@ import apis from "../apis";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-export default function NFT({ handlers }) {
+export default function Listing({ handlers }) {
     const { id } = useParams();
     const [nft, setNft] = useState(null);
     const [realtimeAttention, setRealtimeAttention] = useState(0);
