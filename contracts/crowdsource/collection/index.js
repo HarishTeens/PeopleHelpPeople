@@ -9,7 +9,12 @@ export function handle(state, action) {
             throw new ContractError(`amount cant be null`)
         }
 
-        state.funds.records[action.input.donorId] = action.input.amount
+        if (typeof action.input.amount !== 'number') {
+            throw new ContractError(`amount must be a number`)
+        }
+
+        state.funds.records[action.input.donorId] = action.input.amount;
+        state.funds.raised += action.input.amount;
         return { state }
     }
     throw new ContractError('Invalid input')

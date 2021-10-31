@@ -17,7 +17,7 @@ export default function PetitionCard({ listing, handlers, type = "PETITION", sho
   let history = useHistory();
 
   function handleClick() {
-    history.push("/listing/" + listing.id);
+    history.push("/crowdsource/" + listing.id);
   }
 
   return (
@@ -27,7 +27,7 @@ export default function PetitionCard({ listing, handlers, type = "PETITION", sho
           {listing.name}
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          {Object.keys(listing.signs).length} signed
+          {listing.funds.raised.toFixed(2)} so far of {listing.funds.goal.toFixed(2)} goal
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {listing.description}

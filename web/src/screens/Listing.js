@@ -3,15 +3,13 @@ import { useParams } from "react-router";
 import apis from "../apis";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import PetitionView from "./PetitionView";
+import CrowdsourceView from "./CrowdSourceView";
 
-import { TwitterIcon,TwitterShareButton} from "react-share"
 
-import helpers from "../helpers";
-export default function Listing({ handlers,type = "PETITION", showAlert }) {
+export default function Listing({ handlers, type = "PETITION", showAlert }) {
     const { id } = useParams();
     const [listing, setListing] = useState(null);
-    const [realtimeAttention, setRealtimeAttention] = useState(0);
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -22,19 +20,13 @@ export default function Listing({ handlers,type = "PETITION", showAlert }) {
         fetchData();
     }, [])
 
-    return listing ? (<div>
-        <Stack >
-            {show && <Alert severity="success">Port Recieved</Alert>}
-        </Stack>
-        <h1> {listing?.name}</h1>
-        <h2>{Object.keys(listing.signs).length} signed  </h2>        
-        <p>{listing?.description}</p>
-        {type === "PETITION" && <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>}
-        {type === "COLLECTION" && (<><input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
-          <Button size="small" onClick={handlers.submitRecipient}>Donate</Button></>)}
-        <TwitterShareButton url={window.location.href} title="Sign this petition">
-            Share <TwitterIcon size={32} round={true} />
-        </TwitterShareButton>
-    </div >) : (<div>Loading...</div>)
+    return listing ? (
+        <>
+            <Stack >
+                {show && <Alert severity="success">Port Recieved</Alert>}
+            </Stack>
+            {listing.signs ? <PetitionView listing={listing} /> : <CrowdsourceView handlers={handlers} listing={listing} />}
+        </>
+    ) : (<div>Loading...</div>)
 
 }

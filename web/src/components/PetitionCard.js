@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 import Card from '@mui/material/Card';
@@ -13,10 +13,12 @@ export default function PetitionCard({ listing, handlers, type = "PETITION", sho
   let history = useHistory();
 
   function handleClick() {
-    history.push("/listing/" + listing.id);
+    history.push("/petition/" + listing.id);
   }
 
-
+  useEffect(() => {
+    console.log(listing);
+  }, [listing]);
 
   return (
     <Card sx={{ maxWidth: 345 }} >
@@ -32,7 +34,7 @@ export default function PetitionCard({ listing, handlers, type = "PETITION", sho
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>        
+        <Button size="small" onClick={() => helpers.petition.signHelper(handlers, showAlert, listing.id)}>Sign</Button>
       </CardActions>
     </Card>
   );
