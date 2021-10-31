@@ -9,7 +9,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
 
-export default function PetitionView({ handlers, showAlert }) {
+export default function PetitionView({ handlers,  showAlert }) {
     const { id } = useParams();
     const [petition, setPetition] = useState(null);
     const [show, setShow] = useState(false);

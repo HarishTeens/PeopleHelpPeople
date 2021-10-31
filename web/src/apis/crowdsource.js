@@ -12,9 +12,7 @@ const get = async (id) => {
 
 const donateToken = async (id, data) => {
     const wallet = walletJSON;
-    console.log(wallet);
     const response = await interactWrite(arweave, wallet, id, data);
-    console.log(response);
     return response;
 }
 

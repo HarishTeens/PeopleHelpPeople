@@ -10,7 +10,6 @@ import {
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-import apis from "./apis";
 import ButtonAppBar from "./components/ButtonAppBar";
 import useFinnie from "./hooks/useFinnie";
 import { Container } from "@mui/material";

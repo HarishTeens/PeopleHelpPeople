@@ -17,27 +17,54 @@ export default function CrowdsourceView({ showAlert, handlers }) {
     useEffect(() => {
         const fetchData = async () => {
             const data = await apis.crowdsource.get(id);
+            handlers.setRecipient(data.owner);
             setCrowdsource({ ...data, id: id });
         }
         fetchData();
+
     }, [])
+
+    const donateHandler = async () => {
+        // sends tip from finnie wallet
+
+        await handlers.submitRecipient();
+        await helpers.crowdsource.donateHelper(handlers, showAlert, crowdsource.id, 0.001);
+        setShow(true);
+        setTimeout(() => {
+            setShow(false);
+        }, 5000);
+    }
 
     return crowdsource ? (
         <>
             <Stack >
-                {show && <Alert severity="success">Port Recieved</Alert>}
+                {show && <Alert severity="success">Donated 0.001 default KOII tokens. Fund transfer Successfull</Alert>}
             </Stack>
             <div >
                 <h1> {crowdsource?.name}</h1>
                 <h2>{crowdsource?.funds.raised.toFixed(2)} so far of {crowdsource?.funds.goal.toFixed(2)} goal </h2>
                 <p>{crowdsource?.description}</p>
 
-                <input type="text" placeholder="Recipient wallet address" value={handlers.recipient} onChange={(e) => handlers.setRecipient(e.target.value)} />
-                <Button size="small" onClick={handlers.submitRecipient}>Donate</Button>
+
+                <Button size="small" onClick={donateHandler}>Donate</Button>
                 <TwitterShareButton url={window.location.href} title="Donate to this collection">
                     Share <TwitterIcon size={32} round={true} />
                 </TwitterShareButton>
+
+
             </div >
+            <h3>Transaction Records</h3>
+            <ol>
+                {
+                    Object.keys(crowdsource.funds.records).map(key => {
+                        return (
+                            <div>
+                                <li>{key} donated <b>{crowdsource.funds.records[key].toFixed(2)}</b> KOII</li>
+                            </div>
+                        )
+                    })
+                }
+            </ol>
         </>
     ) : (<div>Loading...</div>)
 }
