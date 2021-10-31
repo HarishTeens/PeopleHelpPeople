@@ -42,7 +42,11 @@ Running `yarn start` should start the app.
 - List, View and Donate Token to Crowdsource funds
 - view records of transaction under a crowdsource fund
 
-## To be implemented
+## To be implemented(Most Import)
 
-Currently there is no UI to Create a Petition or a crowdsource. After Manually deploying the contract from CLI. a payload with `enlist` has to be called using the Arweave CLI. 
+- Currently there is no UI to Create a Petition or a crowdsource. After Manually deploying the contract from CLI. a payload with `enlist` has to be called using the Arweave CLI. 
 Due to time constraint on hackathon deadline, couldnt really implement this part
+- The UI is very ugly. Despite using MUI somehow I managed to look this bad. Gotta work on that
+- The react codebase is a mess. A lot of incosistency fixes and refactoring needs to be done.
+
+P.S. Side effects of staying up all night to submit a decent hack
